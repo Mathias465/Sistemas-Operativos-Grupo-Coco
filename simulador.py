@@ -1,5 +1,6 @@
 """
 Simulador de Sistema de Archivos tipo FAT en Python
+====================================================
 Utiliza un archivo .txt como base de datos y threading para operaciones concurrentes.
 """
 
