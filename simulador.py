@@ -1,6 +1,5 @@
 """
 Simulador de Sistema de Archivos tipo FAT en Python
-====================================================
 Utiliza un archivo .txt como base de datos y threading para operaciones concurrentes.
 """
 
@@ -10,29 +9,22 @@ import time
 import stat
 from datetime import datetime
 
-# ─────────────────────────────────────────────
 #  CONFIGURACIÓN GLOBAL
-# ─────────────────────────────────────────────
 DB_FILE = "filesystem.txt"   # Base de datos del sistema de archivos
 GPWD    = "/"                # Directorio de trabajo actual (global)
 lock    = threading.Lock()   # Mutex para acceso al archivo .txt
 
-# ─────────────────────────────────────────────
 #  FORMATO DE REGISTRO EN filesystem.txt
 #  tipo|ruta_completa|permisos|propietario|tamaño|fecha_modificacion
 #  Ejemplo:
 #  dir |/home             |755|root|0   |2024-01-01 00:00:00
 #  file|/home/readme.txt  |644|root|1024|2024-01-01 00:00:00
-# ─────────────────────────────────────────────
 
 FIELD_SEP = "|"
-
 def _now():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-# ══════════════════════════════════════════════════════════════
 #  OPERACIONES SOBRE filesystem.txt  (siempre con lock)
-# ══════════════════════════════════════════════════════════════
 
 def _read_all():
     """Lee todos los registros del archivo de base de datos."""
@@ -85,10 +77,7 @@ def _init_fs():
             _write_all(records)
             print("[init] Sistema de archivos inicializado con directorio raíz /")
 
-# ══════════════════════════════════════════════════════════════
 #  UTILIDADES DE RUTAS
-# ══════════════════════════════════════════════════════════════
-
 def _resolve(path):
     """Resuelve una ruta relativa o absoluta respecto a GPWD."""
     global GPWD
@@ -123,10 +112,7 @@ def _perms_str(octal_str):
         symbols += "x" if d & 1 else "-"
     return symbols
 
-# ══════════════════════════════════════════════════════════════
 #  COMANDOS DEL SISTEMA DE ARCHIVOS
-# ══════════════════════════════════════════════════════════════
-
 def cmd_pwd():
     """Muestra el directorio actual."""
     print(GPWD)
@@ -217,7 +203,7 @@ def cmd_mkdir(path):
     print(f"Directorio '{target}' creado.")
 
 def cmd_touch(path):
-    """Crea un archivo vacío o actualiza su fecha de modificación."""
+    """Crea un archivo vacio o actualiza su fecha de modificación."""
     target = _resolve(path)
 
     with lock:
@@ -290,10 +276,7 @@ def cmd_chmod(perms, path):
 
     print(f"chmod: '{target}' permisos cambiados de {old} ({_perms_str(old)}) a {perms} ({_perms_str(perms)})")
 
-# ══════════════════════════════════════════════════════════════
 #  OPERACIONES CONCURRENTES CON HILOS
-# ══════════════════════════════════════════════════════════════
-
 def _worker(name, func, *args):
     """Función genérica para ejecutar un comando en un hilo."""
     print(f"\n[Hilo '{name}'] Iniciando: {func.__name__}{args}")
@@ -330,10 +313,7 @@ def demo_concurrente():
     print("\n→ Estado final del directorio /concurrent_test:")
     cmd_ls("/concurrent_test", long=True)
 
-# ══════════════════════════════════════════════════════════════
 #  SHELL INTERACTIVO
-# ══════════════════════════════════════════════════════════════
-
 HELP_TEXT = """
 Comandos disponibles:
   pwd                  Muestra el directorio actual
@@ -445,8 +425,6 @@ def shell():
             print(f"Comando no reconocido: '{cmd}'. Escribe 'help'.")
 
 
-# ══════════════════════════════════════════════════════════════
 #  PUNTO DE ENTRADA
-# ══════════════════════════════════════════════════════════════
 if __name__ == "__main__":
     shell()
