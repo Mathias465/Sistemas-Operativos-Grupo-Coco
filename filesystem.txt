@@ -1,1 +1,13 @@
 dir |/                             |755|root    |0     |2026-05-18 16:14:09
+dir |/grupo                        |655|user    |0     |2026-05-21 16:08:16
+dir |/grupo/mat                    |755|user    |0     |2026-05-21 16:06:13
+file|/grupo/grupo                  |755|user    |0     |2026-05-21 16:08:29
+dir |/mathias                      |755|user    |0     |2026-05-21 16:52:13
+file|/mathias/adrain.txt           |644|user    |0     |2026-05-21 16:52:39
+file|/mathias/hector.txt           |655|user    |0     |2026-05-21 16:53:19
+file|/grupo/estudio.txt            |655|user    |0     |2026-05-22 16:19:21
+dir |/concurrent_test              |755|user    |0     |2026-05-22 16:19:29
+dir |/concurrent_test/subdir       |755|user    |0     |2026-05-22 16:19:29
+file|/concurrent_test/file_c.log   |644|user    |0     |2026-05-22 16:19:29
+file|/concurrent_test/file_b.txt   |644|user    |0     |2026-05-22 16:19:29
+file|/concurrent_test/file_a.txt   |644|user    |0     |2026-05-22 16:19:29
